@@ -140,7 +140,7 @@ class SyncManager(
     suspend fun listAllFile(dir: String?): List<DavData?> = withContext(Dispatchers.IO) {
 
         try {
-            val davServerUrl = SharedPreferencesUtils.davServerUrl.asLiveData().value
+            val davServerUrl = SharedPreferencesUtils.davServerUrl.first()
             val sardine = getSardine()
             val resources = sardine.list(davServerUrl + dir) //如果是目录一定别忘记在后面加上一个斜杠
             val davData: MutableList<DavData> = ArrayList()
