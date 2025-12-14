@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -12,12 +14,17 @@ android {
     namespace = "com.ldlywt.note"
     compileSdk = 35
 
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+
     defaultConfig {
         applicationId = "com.ldlywt.note"
         minSdk = 26
         targetSdk = 35
-        versionCode = 213
-        versionName = "2.1.3"
+        versionCode = 220
+        versionName = "2.2.0"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -29,6 +36,34 @@ android {
 
     buildFeatures {
         buildConfig = true
+    }
+
+    signingConfigs {
+        create("release") {
+
+            //加载资源
+            val properties = Properties()
+            val inputStream = project.rootProject.file("local.properties").inputStream()
+            properties.load(inputStream)
+
+            //读取文件
+            val sdkDir = properties.getProperty("key.file")
+            storeFile = file(sdkDir)
+
+            //读取字段
+            val key_keyAlias = properties.getProperty("keyAlias")
+            val key_keyPassword = properties.getProperty("keyPassword")
+            val key_storePassword = properties.getProperty("storePassword")
+
+            storePassword = key_storePassword
+            keyAlias = key_keyAlias
+            keyPassword = key_keyPassword
+
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = true
+        }
     }
 
     hilt {

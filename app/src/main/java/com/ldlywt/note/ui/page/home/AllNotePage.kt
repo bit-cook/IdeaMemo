@@ -15,7 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.AvTimer
 import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Search
@@ -23,7 +23,6 @@ import androidx.compose.material.icons.outlined.Tag
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.DatePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -33,7 +32,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -53,8 +51,6 @@ import com.ldlywt.note.component.NoteCard
 import com.ldlywt.note.component.RYScaffold
 import com.ldlywt.note.state.NoteState
 import com.ldlywt.note.ui.page.LocalMemosState
-import com.ldlywt.note.ui.page.LocalMemosViewModel
-import com.ldlywt.note.ui.page.NoteViewModel
 import com.ldlywt.note.ui.page.SortTime
 import com.ldlywt.note.ui.page.input.ChatInputDialog
 import com.ldlywt.note.ui.page.router.Screen
@@ -177,8 +173,8 @@ private fun toolbar(navController: NavHostController, filterBlock: () -> Unit, d
         }
     ) {
         Icon(
-            contentDescription = R.string.location_info.str,
-            imageVector = Icons.Outlined.DateRange,
+            contentDescription = R.string.date_range.str,
+            imageVector = Icons.Outlined.AvTimer,
             tint = SaltTheme.colors.text
         )
     }
