@@ -198,7 +198,6 @@ dependencies {
     implementation("org.zeroturnaround:zt-zip:1.15")
     implementation("com.github.thegrizzlylabs:sardine-android:0.8")
 
-    implementation("com.github.SmartToolFactory:Compose-Screenshot:1.0.3")
     implementation("com.kizitonwose.calendar:compose:2.6.0")
     implementation("io.github.moriafly:salt-ui:2.0.0")
     // Kotlin
