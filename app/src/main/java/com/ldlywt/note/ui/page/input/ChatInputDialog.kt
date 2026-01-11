@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -129,43 +130,62 @@ fun ChatInputDialog(
             // 弹框消失时执行你想要的操作
         }
     }
-
     @Composable
     fun TagButton(tagList: List<Tag>) {
-        if (tagList.isEmpty()) {
-            PIconButton(
-                imageVector = Icons.Filled.Tag,
-                contentDescription = stringResource(R.string.tag),
-            ) {
-                text = text.copy(
-                    text.text.replaceRange(text.selection.min, text.selection.max, "#"), TextRange(text.selection.min + 1)
-                )
+        // 提取文本替换逻辑为单独的函数，避免代码重复
+        fun insertTagText(tagContent: String) {
+            val newText = text.text.replaceRange(text.selection.min, text.selection.max, tagContent)
+            val newSelection = TextRange(text.selection.min + tagContent.length)
+            text = text.copy(newText, newSelection)
+        }
+
+        // 根据tagList是否为空选择不同的图标
+        val tagIcon = if (tagList.isEmpty()) Icons.Filled.Tag else Icons.Outlined.Tag
+
+        // 统一的图标按钮
+        PIconButton(
+            imageVector = tagIcon,
+            contentDescription = stringResource(R.string.tag),
+        ) {
+            if (tagList.isEmpty()) {
+                // 当没有标签时，直接插入#
+                insertTagText("#")
+            } else {
+                // 当有标签时，切换菜单展开状态
+                tagMenuExpanded = !tagMenuExpanded
             }
-        } else {
+        }
+
+        // 仅当有标签且菜单展开时显示下拉菜单
+        if (tagList.isNotEmpty() && tagMenuExpanded) {
             Box {
+                // 使用rememberUpdatedState优化状态引用
+                val isTagClicked = remember { mutableStateOf(false) }
                 DropdownMenu(
-                    expanded = tagMenuExpanded, onDismissRequest = { tagMenuExpanded = false }, properties = PopupProperties(focusable = false)
+                    modifier = Modifier.wrapContentHeight().heightIn(max = 400.dp), // 修复heightIn用法
+                    expanded = tagMenuExpanded,
+                    onDismissRequest = {
+                        if (!isTagClicked.value) {
+                            // 如果没有点击菜单项，插入#
+                            insertTagText("#")
+                        }
+                        // 重置状态并关闭菜单
+                        isTagClicked.value = false
+                        tagMenuExpanded = false
+                    },
+                    properties = PopupProperties(focusable = false)
                 ) {
                     tagList.forEach { tag ->
                         DropdownMenuItem(
                             text = { Text(tag.tag) },
                             onClick = {
-                                val tagText = "${tag} "
-                                text = text.copy(
-                                    text.text.replaceRange(
-                                        text.selection.min, text.selection.max, tagText
-                                    ), TextRange(text.selection.min + tagText.length)
-                                )
+                                isTagClicked.value = true
+                                // 点击标签项时插入标签文本
+                                insertTagText("${tag} ")
                                 tagMenuExpanded = false
                             },
                         )
                     }
-                }
-                PIconButton(
-                    imageVector = Icons.Outlined.Tag,
-                    contentDescription = stringResource(R.string.tag),
-                ) {
-                    tagMenuExpanded = !tagMenuExpanded
                 }
             }
         }
@@ -194,11 +214,11 @@ fun ChatInputDialog(
                         text = it
                     },
                     modifier =
-                    modifier
-                        .focusRequester(focusRequester)
-                        .fillMaxWidth()
-                        .heightIn(max = 280.dp)
-                        .clickable { },
+                        modifier
+                            .focusRequester(focusRequester)
+                            .fillMaxWidth()
+                            .heightIn(max = 280.dp)
+                            .clickable { },
                     keyboardOptions = keyboardOptions,
                     label = { Text(R.string.any_thoughts.str) },
                 )
@@ -219,10 +239,10 @@ fun ChatInputDialog(
 
                 Row(
                     modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .imePadding()
-                        .padding(horizontal = 16.dp),
+                        Modifier
+                            .fillMaxWidth()
+                            .imePadding()
+                            .padding(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     TagButton(tagList)
