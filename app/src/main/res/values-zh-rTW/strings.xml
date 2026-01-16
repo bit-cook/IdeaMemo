@@ -105,4 +105,6 @@
     <string name="delete_location">確定要刪除 %1$s 位置資訊？</string>
     <string name="donate_list">捐贈名單</string>
     <string name="thanks">鳴謝</string>
+    <string name="collapse">收起</string>
+    <string name="read_more">全文</string>
 </resources>

@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,8 +25,6 @@ import com.ldlywt.note.bean.Note
 import com.ldlywt.note.component.DraggableCard
 import com.ldlywt.note.component.EmptyComponent
 import com.ldlywt.note.component.ImageCard
-import com.ldlywt.note.component.locationAndTimeText
-import com.ldlywt.note.component.showLocationInfoContent
 import com.ldlywt.note.ui.page.LocalMemosState
 import com.ldlywt.note.ui.page.router.Screen
 import com.ldlywt.note.ui.page.router.debouncedPopBackStack
@@ -125,7 +125,11 @@ fun ExploreMemoCard(
             Spacer(modifier = Modifier.height(12.dp))
         }
         Spacer(modifier = Modifier.weight(1f))
-        locationAndTimeText(note.createTime.toTime(), modifier = Modifier.padding(start = 2.dp))
-        showLocationInfoContent(note)
+        Text(
+            modifier = Modifier.padding(start = 2.dp),
+            text = note.createTime.toTime(),
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+            color = MaterialTheme.colorScheme.outline,
+        )
     }
 }

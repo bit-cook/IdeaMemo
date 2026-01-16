@@ -114,4 +114,6 @@
     <string name="date_not_correct">Date format is incorrect, should be 8 digits</string>
     <string name="end_date">End Time:</string>
     <string name="date_range">Date Range</string>
+    <string name="collapse">Collapse</string>
+    <string name="read_more">Read more</string>
 </resources>

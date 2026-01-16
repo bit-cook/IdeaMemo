@@ -1,7 +1,6 @@
 package com.ldlywt.note.ui.page.search
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,7 +39,6 @@ import com.ldlywt.note.component.NoteCard
 import com.ldlywt.note.component.NoteCardFrom
 import com.ldlywt.note.ui.page.router.debouncedPopBackStack
 import com.ldlywt.note.utils.SettingsPreferences
-import com.moriafly.salt.ui.SaltTheme
 import kotlinx.coroutines.delay
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -55,7 +53,6 @@ fun SearchPage(
     val searchQuery by searchViewModel.query.collectAsState()
     val focusRequester = remember { FocusRequester() }
     val filterList by searchViewModel.dataFlow.collectAsState(initial = emptyList())
-    val maxLine by SettingsPreferences.cardMaxLine.collectAsState(SettingsPreferences.CardMaxLineMode.MAX_LINE)
 
     Box(Modifier.fillMaxSize()) {
         SearchBar(
@@ -114,7 +111,7 @@ fun SearchPage(
                     Spacer(modifier = Modifier.height(16.dp))
                 }
                 items(count = filterList.size, key = { it }) { index ->
-                    NoteCard(noteShowBean = filterList[index], navController, from = NoteCardFrom.SEARCH, maxLine = maxLine.line)
+                    NoteCard(noteShowBean = filterList[index], navController, from = NoteCardFrom.SEARCH)
                 }
                 item {
                     Spacer(modifier = Modifier.height(60.dp))

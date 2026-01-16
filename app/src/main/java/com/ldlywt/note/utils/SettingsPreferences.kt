@@ -25,15 +25,10 @@ object SettingsPreferences {
         LIGHT(R.string.light_mode), DARK(R.string.dark_mode), SYSTEM(R.string.use_device_theme),
     }
 
-    enum class CardMaxLineMode(val line: Int) {
-        TWO_LINE(2), THUR_LINE(4), SIX_LINE(6), EIGHT_LINE(8), MAX_LINE(1000)
-    }
-
     private object PreferencesKeys {
         val THEME_MODE = stringPreferencesKey("theme_mode")
         val DYNAMIC_COLOR = booleanPreferencesKey("dynamic_color")
         val FIRST_LAUNCH = booleanPreferencesKey("first_launch")
-        val CARD_MAX_LINE = stringPreferencesKey("card_max_line")
     }
 
 
@@ -42,7 +37,6 @@ object SettingsPreferences {
     val themeMode = themePreferences.getEnum(PreferencesKeys.THEME_MODE, ThemeMode.SYSTEM)
     val dynamicColor = themePreferences.getBoolean(PreferencesKeys.DYNAMIC_COLOR, false)
     val firstLaunch = themePreferences.getBoolean(PreferencesKeys.FIRST_LAUNCH, true)
-    val cardMaxLine = themePreferences.getEnum(PreferencesKeys.CARD_MAX_LINE, CardMaxLineMode.MAX_LINE)
 
     private suspend fun <T> updatePreference(key: Preferences.Key<T>, value: T) {
         themePreferences.edit { preferences ->
@@ -73,10 +67,6 @@ object SettingsPreferences {
 
     suspend fun changeFirstLaunch(isFirst: Boolean) {
         updatePreference(PreferencesKeys.FIRST_LAUNCH, isFirst)
-    }
-
-    suspend fun changeMaxLine(mode: CardMaxLineMode) {
-        updatePreference(PreferencesKeys.CARD_MAX_LINE, mode.name)
     }
 }
 

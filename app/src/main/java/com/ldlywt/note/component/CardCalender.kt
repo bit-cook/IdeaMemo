@@ -81,28 +81,6 @@ fun CardCalender(
                 ImageCard(note, navHostController)
             }
             Spacer(modifier = Modifier.height(8.dp))
-            showLocationInfoContent(note)
-//            val filterTagList = tags.filterNot { it.tag.isBlank() || it.isCityTag }
-//            if (filterTagList.isNotEmpty()) {
-//                Spacer(modifier = Modifier.height(4.dp))
-//                LazyRow {
-//                    filterTagList.forEachIndexed { index, tag ->
-//                        item(tag.tag) {
-//                            val startPadding = if (index == 0) 0.dp else 6.dp
-//                            Text(tag.tag,
-//                                style = MaterialTheme.typography.labelMedium,
-//                                color = MaterialTheme.colorScheme.primary,
-//                                modifier = Modifier
-//                                    .padding(horizontal = startPadding)
-//                                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f))
-//                                    .clickable {
-//                                        navHostController.navigate("${RouteName.TAG_DETAIL}/${tag.tag}")
-//                                    }
-//                            )
-//                        }
-//                    }
-//                }
-//            }
         }
     }
 

@@ -47,7 +47,6 @@ fun YearDetailPage(year: String, navController: NavHostController) {
     val yearList = remember { mutableStateListOf<NoteShowBean>() }
     val filterYearList = remember { mutableStateListOf<NoteShowBean>() }
     var pageTitle = remember { mutableStateOf(year) }
-    val maxLine by SettingsPreferences.cardMaxLine.collectAsState(SettingsPreferences.CardMaxLineMode.MAX_LINE)
 
     LaunchedEffect(key1 = Unit, block = {
         noteViewModel.getNotesByYear(year).collect {
@@ -115,7 +114,7 @@ fun YearDetailPage(year: String, navController: NavHostController) {
     ) {
         LazyColumn {
             items(count = filterYearList.size, key = { it }) { index ->
-                NoteCard(noteShowBean = filterYearList[index], navController, from = NoteCardFrom.TAG_DETAIL, maxLine = maxLine.line)
+                NoteCard(noteShowBean = filterYearList[index], navController, from = NoteCardFrom.TAG_DETAIL)
             }
             item {
                 Spacer(modifier = Modifier.height(60.dp))

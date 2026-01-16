@@ -72,7 +72,6 @@ import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ldlywt.note.R
 import com.ldlywt.note.bean.NoteShowBean
-import com.ldlywt.note.component.showLocationInfoContent
 import com.ldlywt.note.ui.page.LocalMemosState
 import com.ldlywt.note.ui.page.LocalMemosViewModel
 import com.ldlywt.note.ui.page.LocalTags
@@ -349,7 +348,6 @@ private fun inputActionBar(
                                 TextStyle.SHORT, Locale.getDefault()
                             ), style = MaterialTheme.typography.bodySmall.copy(color = SaltTheme.colors.text), fontSize = 10.sp
                         )
-                        showLocationInfoContent(modifier = Modifier.padding(start = 4.dp), note = memo?.note)
                     }
                 }
             }

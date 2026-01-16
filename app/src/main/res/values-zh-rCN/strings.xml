@@ -112,4 +112,6 @@
     <string name="date_not_correct">日期格式不正确，应为8位数字</string>
     <string name="end_date">结束时间:</string>
     <string name="date_range">时间区间</string>
+    <string name="collapse">收起</string>
+    <string name="read_more">全文</string>
 </resources>

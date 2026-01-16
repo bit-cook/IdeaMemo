@@ -1,32 +1,22 @@
 package com.ldlywt.note.ui.page.tag
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.ldlywt.note.R
 import com.ldlywt.note.bean.NoteShowBean
 import com.ldlywt.note.component.NoteCard
 import com.ldlywt.note.component.NoteCardFrom
 import com.ldlywt.note.component.RYScaffold
-import com.ldlywt.note.utils.toMM
 import com.ldlywt.note.ui.page.LocalMemosViewModel
 import com.ldlywt.note.utils.SettingsPreferences
 import java.time.Instant
@@ -38,7 +28,6 @@ import java.time.format.DateTimeFormatter
 fun DateRangePage(startTime: Long, endTime: Long, navController: NavHostController) {
     val noteViewModel = LocalMemosViewModel.current
     val filterYearList = remember { mutableStateListOf<NoteShowBean>() }
-    val maxLine by SettingsPreferences.cardMaxLine.collectAsState(SettingsPreferences.CardMaxLineMode.MAX_LINE)
 
     LaunchedEffect(key1 = Unit, block = {
         noteViewModel.getNotesByCreateTimeRange(startTime, endTime).collect {
@@ -61,7 +50,7 @@ fun DateRangePage(startTime: Long, endTime: Long, navController: NavHostControll
     ) {
         LazyColumn {
             items(count = filterYearList.size, key = { it }) { index ->
-                NoteCard(noteShowBean = filterYearList[index], navController, from = NoteCardFrom.TAG_DETAIL, maxLine = maxLine.line)
+                NoteCard(noteShowBean = filterYearList[index], navController, from = NoteCardFrom.TAG_DETAIL)
             }
             item {
                 Spacer(modifier = Modifier.height(60.dp))
